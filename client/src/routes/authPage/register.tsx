@@ -1,15 +1,33 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router'; 
+import { Link, useNavigate } from 'react-router'; 
+import { apiRequest } from '../../utils/apiRequest';
+import useStore from '../../utils/authStore';
 
 export default function Register() {
   const [username, setUsername] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate()
+  const {setCurrentUser} = useStore()
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const formData = new FormData(e.target)
+    const data = Object.fromEntries(formData)
+    
+    try{
+      const res = await apiRequest.post('/users/auth/register', data)
+      navigate('/')
+      setCurrentUser(res.data)
+      console.log(res)
+    }catch(err){
+      console.error(err)
+      setError(err.response.data.message)
+    }
+
   };
 
   return (
@@ -27,30 +45,36 @@ export default function Register() {
           <div className="flex flex-col gap-1">
             <label htmlFor="username" className="text-sm text-gray-600">Username</label>
             <input
+              required
               type="text"
               id="username"
               className="border-2 border-gray-300 rounded-full px-4 py-2 outline-none focus:border-red-500 text-gray-800"
               placeholder="Choose a username"
               value={username}
+              name='username'
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
           <div className="flex flex-col gap-1">
             <label htmlFor="name" className="text-sm text-gray-600">Full Name</label>
             <input
+              required
               type="text"
               id="name"
               className="border-2 border-gray-300 rounded-full px-4 py-2 outline-none focus:border-red-500 text-gray-800"
               placeholder="Enter your full name"
               value={name}
+              name='displayName'
               onChange={(e) => setName(e.target.value)}
             />
           </div>
           <div className="flex flex-col gap-1">
             <label htmlFor="email" className="text-sm text-gray-600">Email</label>
             <input
+              required
               type="email"
               id="email"
+              name='email'
               className="border-2 border-gray-300 rounded-full px-4 py-2 outline-none focus:border-red-500 text-gray-800"
               placeholder="Enter your email"
               value={email}
@@ -60,13 +84,16 @@ export default function Register() {
           <div className="flex flex-col gap-1">
             <label htmlFor="password" className="text-sm text-gray-600">Password</label>
             <input
+              required
               type="password"
               id="password"
+              name='password'
               className="border-2 border-gray-300 rounded-full px-4 py-2 outline-none focus:border-red-500 text-gray-800"
               placeholder="Create a password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            <span className="text-sm text-red-600">{error}</span>
           </div>
 
           {/* Submit Button */}

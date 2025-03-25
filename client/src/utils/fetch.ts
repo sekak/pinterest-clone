@@ -1,4 +1,4 @@
-import axios from "axios";
+import { apiRequest } from "./apiRequest";
 
 export const fetchPins = async (
   pageParam: number,
@@ -6,25 +6,37 @@ export const fetchPins = async (
   userId: string | null | undefined,
   board_id: string | null | undefined
 ) => {
-  const res = await axios.get(
-    `http://localhost:3000/api/pins?cursor=${pageParam}&search=${search || ""}&userId=${userId || ""}&boardId=${board_id || ""}`
+
+  const res = await apiRequest.get(
+    `/pins?cursor=${pageParam}&search=${search || ""}&userId=${userId || ""}&boardId=${board_id || ""}`
   );
   return res.data;
 };
 
 export const fetchPin = async (id: string | undefined) => {
-  const res = await axios.get(`http://localhost:3000/api/pins/${id}`);
+  const res = await apiRequest.get(`/pins/${id}`);
   return res.data;
 };
 
 export const fetchProfile = async (username: string | undefined) => {
   if (!username) return;
-  const res = await axios.get(`http://localhost:3000/api/users/${username}`);
+  const res = await apiRequest.get(`/users/${username}`);
   return res.data;
 };
 
 export const fetchBoards = async (userId: string) => {
   if (!userId) return;
-  const res = await axios.get(`http://localhost:3000/api/boards/${userId}`);
+  const res = await apiRequest.get(`/boards/${userId}`);
   return res.data;
 };
+
+
+export const fetchComments = async (pinId: string) => {
+  const res = await apiRequest.get(`/comments?pinId=${pinId || ''}`);
+  return res.data;
+}
+
+export const fetchFollow = async (userId: string) => {
+  const res = await apiRequest.get(`/follow/${userId}`)
+  return res.data
+}

@@ -4,4 +4,5 @@ export interface Props {
     w?: string
     className?: string
     src?: string
+    onClick?: (event: React.MouseEvent<HTMLImageElement>) => void;
 }

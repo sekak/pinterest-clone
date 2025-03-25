@@ -15,10 +15,10 @@ export default function PostInteractions() {
           <span>2.5k</span>
         </div>
         <div className='w-12 h-12 hover:bg-gray-200 rounded-full flex items-center justify-center'>
-          <MoreHorizOutlinedIcon />
+          <FileUploadOutlinedIcon />
         </div>
         <div className='w-12 h-12 hover:bg-gray-200 rounded-full flex items-center justify-center'>
-          <FileUploadOutlinedIcon />
+          <MoreHorizOutlinedIcon />
         </div>
       </div>
       <Button className='!px-4 !py-3 !bg-red-600 !rounded-full !text-white !font-bold !text-sm' variant='contained'

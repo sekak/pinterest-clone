@@ -35,10 +35,10 @@ export default function PostPage() {
                 <div className='flex-1 h-full w-full flex flex-col'>
                     <PostInteractions />
                     <div>
-                        <h1 className='px-4 line-clamp-2 text-[28px] font-bold mb-3'>{data?.title}</h1>
+                        <h1 className='px-4 line-clamp-2 text-[28px] font-bold'>{data?.title}</h1>
                     </div>
                     <User {...data?.user} />
-                    <Comments />
+                    <Comments pin={data?._id}/>
                 </div>
             </div>
         </div>

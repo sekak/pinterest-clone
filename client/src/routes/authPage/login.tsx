@@ -1,13 +1,29 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
+import { apiRequest } from '../../utils/apiRequest';
+import  useStore  from '../../utils/authStore';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  const {setCurrentUser} = useStore()
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-  };
+    const formData = new FormData(e.target)
+    const data = Object.fromEntries(formData)
+    
+    try{
+      const res = await apiRequest.post('/users/auth/login', data)
+      setCurrentUser(res.data)
+      navigate('/')
+    }catch(err){
+      console.error(err)
+      setError(err.response.data.message)
+    }  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -25,6 +41,8 @@ export default function Login() {
           <div className="flex flex-col gap-1">
             <label htmlFor="email" className="text-sm text-gray-600">Email</label>
             <input
+              required
+              name='email'
               type="email"
               id="email"
               className="border-2 border-gray-300 rounded-full px-4 py-2 outline-none focus:border-red-500 text-gray-800"
@@ -38,6 +56,8 @@ export default function Login() {
           <div className="flex flex-col gap-1">
             <label htmlFor="password" className="text-sm text-gray-600">Password</label>
             <input
+              required
+              name='password'
               type="password"
               id="password"
               className="border-2 border-gray-300 rounded-full px-4 py-2 outline-none focus:border-red-500 text-gray-800"
@@ -45,6 +65,7 @@ export default function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            <span className="text-sm text-red-600">{error}</span>
             <Link to="/auth/forgot-password" className="text-sm text-red-600 hover:underline self-end mt-1">
               Forgot password?
             </Link>

@@ -6,7 +6,7 @@ import { fetchPins } from '../../utils/fetch'
 import { Props } from './types'
 
 export default function Gallery(props: Props) {
-
+    
     const { data, status, hasNextPage, fetchNextPage } = useInfiniteQuery({
         queryKey: ['pins', props.search, props.userId, props.board_id],
         queryFn: ({ pageParam }) => fetchPins(pageParam, props.search, props.userId, props.board_id),

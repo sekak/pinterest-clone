@@ -6,7 +6,7 @@ import { Link } from 'react-router'
 export default function User(data: Props) {
 
   return (
-    <Link to={`/${data.username}`} className='flex items-center gap-2 pl-4 pr-2 py-2'>
+    <Link to={`/profile/${data.username}`} className='flex items-center gap-2 ml-4 py-2 mr-2 border-b border-gray-300'>
       <Image media={data?.img} src={data?.img} className='w-6 h-6 rounded-full'/>
       <span className='text-sm'>{data?.username}</span>
     </Link>

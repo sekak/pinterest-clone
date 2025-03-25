@@ -13,6 +13,7 @@ const schema = new Schema({
     },
     img: {
         type: String,
+        default: null,
     },
     email: {
         type: String,

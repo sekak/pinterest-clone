@@ -1,8 +1,10 @@
 import express from 'express'
-import { test } from '../controlles/comment.controlles.js'
+import { getComments, createComment } from '../controlles/comment.controlles.js'
+import { verifyToken } from '../utils/verifyToken.js'
 
 const router = express.Router()
 
-router.get('/test', test)
+router.get('/', getComments)
+router.post('/create',verifyToken , createComment)
 
 export default router

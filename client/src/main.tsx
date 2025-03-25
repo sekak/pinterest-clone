@@ -29,7 +29,7 @@ if (rootElement) {
               <Route path="/" element={<HomePage />} />
               <Route path="/pin/:id" element={<PostPage />} />
               <Route path="/create" element={<CreatePage />} />
-              <Route path="/:username" element={<ProfilePage />} />
+              <Route path="profile/:username" element={<ProfilePage />} />
               <Route path="/search" element={<SearchPage />} />
             </Route>
             <Route path="/auth/register" element={<Register />} />

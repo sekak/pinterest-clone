@@ -9,9 +9,10 @@ export default function Image(props: Props) {
             src={props.src}
             urlEndpoint={import.meta.env.VITE_URL_ENDPOINT}
             className={props.className}
-            transformation={[{ height: props.h, width: props.w}]}
+            transformation={[{ height: props.h, width: props.w }]}
             loading="lazy"
             lqip={{ active: true, quality: 20 }}
+            onClick={props.onClick}
         />
     )
 }
