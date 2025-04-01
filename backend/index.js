@@ -7,11 +7,13 @@ import followRouter from './routes/follow.router.js'
 import connectDB from './utils/connectDB.js'
 import cors from 'cors'
 import cookieParser from "cookie-parser";
+import fileUpload from 'express-fileupload'
 
 
 const app = express()
 app.use(express.json())
 app.use(cookieParser());
+app.use(fileUpload())
 
 app.use(cors({origin: process.env.CORS_ORIGIN ,credentials: true}))
 

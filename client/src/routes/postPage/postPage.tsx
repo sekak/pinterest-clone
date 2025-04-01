@@ -28,9 +28,9 @@ export default function PostPage() {
             <div className='!w-12 !h-12 min-w-12 mt-4 !mx-4 hover:bg-gray-200 rounded-full flex items-center justify-center'>
                 <ArrowBackOutlinedIcon className='!text-2xl !cursor-pointer' />
             </div>
-            <div className='flex md:flex-row flex-col h-full w-full border border-gray-300 rounded-4xl'>
+            <div className='flex md:flex-row flex-col h-full w-full border border-gray-300 rounded-4xl mr-4'>
                 <div className='bg-red-50 flex-1 flex items-center justify-center w-full h-full overflow-hidden rounded-t-4xl md:rounded-l-4xl md:rounded-t-none'>
-                    <Image media={data?.media} src={data?.media} w="736" className='w-full h-full object-cover' />
+                    <Image media={data?.media} w="736" className='w-full h-full object-cover' />
                 </div>
                 <div className='flex-1 h-full w-full flex flex-col'>
                     <PostInteractions />

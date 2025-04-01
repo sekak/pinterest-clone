@@ -13,7 +13,6 @@ export default function Comments({ pin }: { pin: string }) {
         queryKey: ['comments', pin],
         queryFn: () => fetchComments(pin),
     })
-
     if (error) return <div>Error</div>
     if (isPending) return <div>Loading...</div>
 
@@ -21,9 +20,9 @@ export default function Comments({ pin }: { pin: string }) {
         <div className="py-4 w-full h-[calc(100%-140px)] flex flex-col justify-between pl-4">
             <div className="flex flex-col gap-2 w-full overflow-y-auto overflow-x-hidden ">
                 <span className='font-bold flex justify-between items-center mr-4'>{data.length === 0 ? 'No Comments!' : data.length + ' Comments'}
-                    <span className="cursor-pointer" onClick={() => setOpen(!open)}>
+                    {data?.length > 0 && <span className="cursor-pointer" onClick={() => setOpen(!open)}>
                         {open ? 'Hide' : 'Show'}
-                    </span>
+                    </span>}
                 </span>
                 <div className="flex flex-col gap-4">
                     {open && data?.map((comment: Props) => (
@@ -32,7 +31,7 @@ export default function Comments({ pin }: { pin: string }) {
                 </div>
             </div>
 
-            <CommentForm pin={data[0].pin}/>
+            <CommentForm pin={pin}/>
         </div>
     );
 }

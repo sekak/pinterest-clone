@@ -30,6 +30,7 @@ export default function PinImage(props: Props) {
                     <input
                         id="file-upload"
                         type="file"
+                        name="file"
                         className="hidden"
                         accept=".jpg,.mp4"
                         onChange={handleFileChange}

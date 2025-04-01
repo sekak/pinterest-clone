@@ -6,6 +6,7 @@ export interface Img {
 }
 
 export interface Props {
+    handleSubmit?: () => void;
     setIsEditing?: (value: boolean) => void;
     isEditing?: boolean;
     file?: File | null;

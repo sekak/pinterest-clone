@@ -24,14 +24,13 @@ export default function ProfilePage() {
 
   return (
     <div className='flex flex-col items-center'>
-      <Image media={data?.img} src={data?.img} w='100' h='100' className='w-[100px] h-[100px] rounded-full object-cover' />
+      <Image media={data?.img ? data?.img : '/general/noAvatar.png'} w='100' h='100' className='w-[100px] h-[100px] rounded-full object-cover' />
       <h1 className='text-lg font-bold'>{data?.username}</h1>
       <span className='text-gray-700 text-sm'>@{data?.displayName}</span>
       <span className='text-gray-800 mt-3'>{data?.followings} following . {data?.followers} followers</span>
       <Buttons userId={data._id} isFollowing={data?.isFollowing} />
-      <Navigation setType={setType} type={type}/>
+      <Navigation setType={setType} type={type} />
       <div className='mt-6'>
-
         {
           type === 'created' ? (
             <Gallery userId={data._id} />

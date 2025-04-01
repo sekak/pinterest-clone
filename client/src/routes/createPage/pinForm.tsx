@@ -1,8 +1,8 @@
 import React from 'react'
 
-export default function PinForm() {
+export default function PinForm({formRef}: {formRef: React.RefObject<HTMLFormElement | null>}) {
     return (
-        <form className="flex flex-col gap-6 w-full md:min-w-[550px]" >
+        <form className="flex flex-col gap-6 w-full md:min-w-[550px]" ref={formRef} >
             <div className="flex flex-col gap-2">
                 <label htmlFor="title" className="text-[12px]">
                     Title
@@ -10,6 +10,7 @@ export default function PinForm() {
                 <input
                     type="text"
                     id="title"
+                    name='title'
                     className="border-2 border-gray-300 rounded-2xl px-4 py-3 outline-blue-500 text-gray-800"
                     placeholder="Add a title"
                 />
@@ -21,6 +22,7 @@ export default function PinForm() {
                 </label>
                 <textarea
                     id="description"
+                    name='description'
                     className="border-2 border-gray-300 rounded-2xl px-4 py-3 min-h-20 outline-blue-500 text-gray-800"
                     placeholder="Add a detailed description"
                 />
@@ -32,12 +34,13 @@ export default function PinForm() {
                 </label>
                 <select
                     id="board"
+                    name='board'
                     className="border-2 border-gray-300 rounded-2xl px-4 py-3 outline-blue-500 text-gray-800"
                 >
-                    <option value="0">Choose a board</option>
-                    <option value="1">Board 1</option>
-                    <option value="2">Board 2</option>
-                    <option value="3">Board 3</option>
+                    <option value="">Choose a board</option>
+                    <option value="Board1">Board 1</option>
+                    <option value="Board2">Board 2</option>
+                    <option value="Board3">Board 3</option>
                 </select>
             </div>
 
@@ -49,6 +52,7 @@ export default function PinForm() {
                     className="border-2 border-gray-300 rounded-2xl px-4 py-3 outline-blue-500 text-gray-800"
                     type="text"
                     id="tags"
+                    name='tags'
                     placeholder="Add tags"
                 />
                 <span className="text-gray-500 text-[12px]">

@@ -1,12 +1,16 @@
 import { create } from "zustand";
 
+
 interface TextOptions {
   text: string;
   fontSize: number;
   color: string;
-  fontFamily: string;
   top: number;
   left: number;
+  align: 'left' | 'center' | 'right';
+  bold: boolean;
+  italic: boolean;
+  underline: boolean;
 }
 interface EditorProps {
   currentEditor: string;
@@ -14,6 +18,15 @@ interface EditorProps {
   textOptions: TextOptions;
   setTextOptions: (newOptions: TextOptions) => void;
   addText: () => void;
+  canvasOptions: CanvasOptions;
+  setCanvasOptions: (newOptions: CanvasOptions) => void;
+}
+
+interface CanvasOptions {
+  height: number;
+  size: string;
+  backgroundColor: string;
+  orientation: 'portrait' | 'landscape' | '';
 }
 
 export const useEditorStore = create<EditorProps>((set) => ({
@@ -23,9 +36,12 @@ export const useEditorStore = create<EditorProps>((set) => ({
     text: "",
     fontSize: 48,
     color: "#000000",
-    fontFamily: "Arial",
+    align: 'left',
     top: 0,
     left: 0,
+    bold: false,
+    italic: false,
+    underline: false,
   },
   setTextOptions: (newOptions: TextOptions) => set({ textOptions: newOptions }),
   addText: () =>
@@ -34,9 +50,19 @@ export const useEditorStore = create<EditorProps>((set) => ({
         text: "Add Text",
         fontSize: 48,
         color: "#000000",
-        fontFamily: "Arial",
-        top: 10,
-        left: 10,
+        top: 0,
+        left: 0,
+        align: 'left',
+        bold: false,
+        italic: false,
+        underline: false,
       },
     }),
+  canvasOptions: {
+    height: 0,
+    size: 'original',
+    backgroundColor: "#ffffff",
+    orientation: "",
+  },
+  setCanvasOptions: (newOptions: CanvasOptions) => set({ canvasOptions: newOptions }),
 }));
