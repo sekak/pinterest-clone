@@ -9,20 +9,11 @@ import { Img } from './types';
 import { useMutation } from '@tanstack/react-query';
 import { apiRequest } from '../../utils/apiRequest';
 import { useEditorStore } from '../../utils/editorStore';
-interface PropsObject {
-  title?: string;
-  description?: string;
-  tags?: string[];
-  media: File | null;
-  textOptions: object;
-  canvasOptions: object;
-}
+
 const createPin = async (data) => {
   const res = await apiRequest.post('/pins/create',data)
   return res.data;
 };
-
-
 
 export default function CreatePage() {
 
@@ -39,8 +30,7 @@ export default function CreatePage() {
     mutationFn: createPin,
     onSuccess: (data) => {
       if (data) {
-        console.log(data)
-        // navigate(`/pin/${data._id}`);
+        navigate(`/pin/${data._id}`);
       }
     },
   })

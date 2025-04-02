@@ -1,6 +1,9 @@
 import Pin from "../models/pin.model.js";
 import sharp from "sharp";
 import Imagekit from "imagekit";
+import Like from "../models/like.model.js";
+import Save from "../models/save.model.js";
+import JWT from "jsonwebtoken";
 
 export const getPins = async (req, res) => {
   const pageNumber = Number(req.query.cursor) || 0;
@@ -10,16 +13,26 @@ export const getPins = async (req, res) => {
   const LIMIT = 21;
 
   const pins = await Pin.find(
-    search ? {
-      $or: [
-        { title: { $regex: search, $options: "i" } },
-        { tags: { $in: [search] } },
-      ],
-    } : userId ? { user: userId } : boardId ? { board: boardId } : {}
-  ).limit(LIMIT).skip(LIMIT * pageNumber);
+    search
+      ? {
+          $or: [
+            { title: { $regex: search, $options: "i" } },
+            { tags: { $in: [search] } },
+          ],
+        }
+      : userId
+      ? { user: userId }
+      : boardId
+      ? { board: boardId }
+      : {}
+  )
+    .limit(LIMIT)
+    .skip(LIMIT * pageNumber);
 
   const hasNextPage = pins.length === LIMIT;
-  res.status(200).json({ pins, nextCursor: hasNextPage ? pageNumber + 1 : null });
+  res
+    .status(200)
+    .json({ pins, nextCursor: hasNextPage ? pageNumber + 1 : null });
 };
 
 export const getPin = async (req, res) => {
@@ -29,7 +42,7 @@ export const getPin = async (req, res) => {
 };
 
 export const createPin = async (req, res) => {
-  const { 
+  const {
     title,
     description,
     link,
@@ -38,16 +51,15 @@ export const createPin = async (req, res) => {
     textOptions,
     canvasOptions,
     // newBoard
-   } = req.body;
-  const media = req.files.media
+  } = req.body;
+  const media = req.files.media;
 
-  if (!media, !title, !description) {
+  if ((!media, !title, !description)) {
     return res.status(400).json("Please fill all fields");
   }
 
-  const parsedTextOptions = JSON.parse(textOptions)
-  const parsedCanvasOptions = JSON.parse(canvasOptions) 
-
+  const parsedTextOptions = JSON.parse(textOptions);
+  const parsedCanvasOptions = JSON.parse(canvasOptions);
 
   const metadata = await sharp(media.data).metadata();
 
@@ -109,6 +121,7 @@ export const createPin = async (req, res) => {
       : ""
   }`;
 
+
   imagekit
     .upload({
       file: media.data,
@@ -119,34 +132,104 @@ export const createPin = async (req, res) => {
       },
     })
     .then(async (response) => {
-      // FIXED: ADD NEW BOARD
-      let newBoardId;
-
-      // if (newBoard) {
-      //   const res = await Board.create({
-      //     title: newBoard,
-      //     user: req.userId,
-      //   });
-      //   newBoardId = res._id;
-      // }
-
-      console.log(board)
-
       const newPin = await Pin.create({
-        user: req.userId,
+        user: `${req.userId}`,
         title,
         description,
         link: link || null,
-        board:  '67d5bec40039cb3d8289f414',
+        board: "67d5bec40039cb3d8289f414",
         tags: tags ? tags.split(",").map((tag) => tag.trim()) : [],
         media: response.filePath,
         width: response.width,
         height: response.height,
       });
+
       return res.status(201).json(newPin);
     })
     .catch((err) => {
       console.log(err);
       return res.status(500).json(err);
     });
-}
+};
+
+export const interactionPin = async (req, res) => {
+  const id = req.params.id;
+  const countLikes = await Like.countDocuments({
+    pin: id,
+  });
+
+  const token = req.cookies.token;
+
+  if (!token)
+    return res
+      .status(200)
+      .json({ countLikes: countLikes, isLiked: false, isSaved: false });
+
+  JWT.verify(token, process.env.JWT_SECRET, async (err, payload) => {
+    if (err) {
+      return res
+        .status(200)
+        .json({ countLikes: countLikes, isLiked: false, isSaved: false });
+    }
+    const userId = payload.id;
+
+    const isLiked = await Like.findOne({
+      pin: id,
+      user: userId,
+    });
+    const isSaved = await Save.findOne({
+      pin: id,
+      user: userId,
+    });
+
+    return res.status(200).json({
+      countLikes: countLikes,
+      isLiked: isLiked ? true : false,
+      isSaved: isSaved ? true : false,
+    });
+  });
+};
+
+export const interaction = async (req, res) => {
+  const pinId = req.params.id;
+  const { type } = req.body;
+
+  if (!type || !pinId) return res.status(400).json("Please fill all fields");
+
+  if (type === "like") {
+    const like = await Like.findOne({
+      pin: pinId,
+      user: req.userId,
+    });
+    if (like)
+      await Like.deleteOne({
+        pin: pinId,
+        user: req.userId,
+      });
+    else {
+      await Like.create({
+        pin: pinId,
+        user: req.userId,
+      });
+    }
+    return res.status(200).json("success");
+  } else {
+    const save = await Save.findOne({
+      pin: pinId,
+      user: req.userId,
+    });
+    if (save) {
+      await Save.deleteOne({
+        pin: pinId,
+        user: req.userId,
+      });
+    } else {
+      await Save.create({
+        pin: pinId,
+        user: req.userId,
+      });
+    }
+
+    return res.status(200).json("success");
+  }
+};

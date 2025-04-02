@@ -21,7 +21,7 @@ const seedDB = async () => {
       username: `user${i}`,
       email: `user${i}@example.com`,
       hashedPassword: hashedPassword,
-      img: `https://picsum.photos/id/${i}/200/200`,
+      img: "",
     });
     users.push(await user.save());
   }
@@ -45,7 +45,7 @@ const seedDB = async () => {
     for (let i = 1; i <= 10; i++) {
       const mediaSize = Math.random() < 0.5 ? "800/1200" : "800/600";
       const pin = new Pin({
-        media: `https://picsum.photos/id/${i + 10}/${mediaSize}`,
+        media: `/pins/pin${i + 10}.jpeg`,
         width: 800,
         height: mediaSize === "800/1200" ? 1200 : 600,
         title: `Pin ${i} by ${user.username}`,

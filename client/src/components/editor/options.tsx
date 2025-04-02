@@ -189,7 +189,7 @@ export default function Options({ previewImg }: { previewImg: Img }) {
           </div>
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 relative">
           <span className="font-medium">Background Color</span>
           <div
             onClick={() => setIsBgColorPickerOpen(prev => !prev)}
@@ -197,7 +197,7 @@ export default function Options({ previewImg }: { previewImg: Img }) {
             style={{ backgroundColor: canvasOptions.backgroundColor }}
           />
           {isBgColorPickerOpen && (
-            <div className="absolute z-10 top-12 left-0">
+            <div className="absolute z-10 top-20 left-0">
               <HexColorPicker
                 color={canvasOptions.backgroundColor}
                 onChange={(bg) => setCanvasOptions({ ...canvasOptions, backgroundColor: bg })}

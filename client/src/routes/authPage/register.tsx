@@ -22,7 +22,6 @@ export default function Register() {
       const res = await apiRequest.post('/users/auth/register', data)
       navigate('/')
       setCurrentUser(res.data)
-      console.log(res)
     }catch(err){
       console.error(err)
       setError(err.response.data.message)
