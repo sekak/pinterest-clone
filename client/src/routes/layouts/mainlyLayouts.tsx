@@ -1,7 +1,6 @@
-import React from 'react'
 import { Outlet } from 'react-router'
-import TopBar from '../../components/topBar/topBar'
-import LeftBar from '../../components/leftBar/leftBar'
+import TopBar from '@/components/topBar/topBar'
+import LeftBar from '@/components/leftBar/leftBar'
 
 export default function MainlyLayouts() {
   return (

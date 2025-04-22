@@ -1,7 +1,6 @@
-import React from 'react'
-import Image from '../../components/image/image';
+import Image from '@/components/image/image';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
-import { Props } from './types';
+import { Props } from '@/routes/createPage/types';
 
 export default function PinImage(props: Props) {
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {

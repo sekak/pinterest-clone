@@ -1,4 +1,3 @@
-import React from 'react';
 
 export default function Navigation({ setType, type }: { setType: (type: string) => void, type: string }) {
     return (

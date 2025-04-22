@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router'; 
-import { apiRequest } from '../../utils/apiRequest';
-import useStore from '../../utils/authStore';
+import { apiRequest } from '@/utils/apiRequest';
+import useStore from '@/utils/authStore';
 
 export default function Register() {
   const [username, setUsername] = useState('');

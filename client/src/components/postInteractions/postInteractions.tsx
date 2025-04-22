@@ -1,11 +1,10 @@
-import React from 'react'
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import { Button } from '@mui/material';
-import { apiRequest } from '../../utils/apiRequest';
+import { apiRequest } from '@/utils/apiRequest';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { InterActionFn } from '../../utils/fetch';
-import InterActionSkeleton from '../../skeleton/interAction';
+import { InterActionFn } from '@/utils/fetch';
+import InterActionSkeleton from '@/skeleton/interAction';
 
 export default function PostInteractions({ id }: { id: string | undefined }) {
   const queryClient = useQueryClient();

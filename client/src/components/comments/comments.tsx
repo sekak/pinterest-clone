@@ -1,13 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
-import { Props } from './types';
-import Comment from './comment';
-import { fetchComments } from '../../utils/fetch';
-import CommentForm from './commentForm';
+import { Props } from '@/components/comments/types';
+import Comment from '@/components/comments/comment';
+import { fetchComments } from '@/utils/fetch';
+import CommentForm from '@/components/comments/commentForm';
+import { useState } from 'react';
 
 export default function Comments({ pin }: { pin: string }) {
 
-    const [open, setOpen] = React.useState<boolean>(false);
+    const [open, setOpen] = useState<boolean>(false);
 
     const { data, isPending, error } = useQuery({
         queryKey: ['comments', pin],

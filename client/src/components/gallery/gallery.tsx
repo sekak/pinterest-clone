@@ -1,11 +1,10 @@
-import React from 'react'
-import GalleryItem from '../galleryItem/galleryItem'
+import GalleryItem from '@/components/galleryItem/galleryItem'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { fetchPins } from '../../utils/fetch'
-import { Props } from './types'
-import Loading from '../../utils/loading'
-import ErrorServer from '../handleErr/ErrorServer'
+import { fetchPins } from '@/utils/fetch'
+import { Props } from '@/components/gallery/types'
+import Loading from '@/utils/loading'
+import ErrorServer from '@/components/handleErr/ErrorServer'
 
 export default function Gallery(props: Props) {
 

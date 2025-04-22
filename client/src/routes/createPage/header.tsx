@@ -1,5 +1,4 @@
-import React from 'react'
-import { Props } from './types';
+import { Props } from '@/routes/createPage/types';
 
 export default function Header(props: Props) {
 

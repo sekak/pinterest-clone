@@ -1,15 +1,15 @@
-import React from 'react';
-import { Img } from '../../routes/createPage/types';
-import { useEditorStore } from '../../utils/editorStore';
+import { Img } from '@/routes/createPage/types';
+import { useEditorStore } from '@/utils/editorStore';
 import { HexColorPicker } from 'react-colorful';
-import { OptionsProps } from './utils/types';
+import { OptionsProps } from '@/components/editor/utils/types';
 import { landscapeSizes, portraitSizes } from './utils/variant';
+import { useState } from 'react';
 
 
 export default function Options({ previewImg }: { previewImg: Img }) {
   const { textOptions, currentEditor, setTextOptions, canvasOptions, setCanvasOptions } = useEditorStore();
-  const [isBgColorPickerOpen, setIsBgColorPickerOpen] = React.useState<boolean>(false);
-  const [isTextColorPickerOpen, setIsTextColorPickerOpen] = React.useState<boolean>(false);
+  const [isBgColorPickerOpen, setIsBgColorPickerOpen] = useState<boolean>(false);
+  const [isTextColorPickerOpen, setIsTextColorPickerOpen] = useState<boolean>(false);
 
   const isOrientationImg = previewImg.width > previewImg.height ? 'landscape' : 'portrait';
 

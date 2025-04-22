@@ -1,14 +1,13 @@
-import React from 'react'
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
-import Image from '../image/image';
+import Image from '@/components/image/image';
 import { Button } from '@mui/material';
-import { Props } from './types';
+import { Props } from '@/components/galleryItem/types';
 import { Link } from 'react-router';
+import { useState } from 'react';
 
 export default function GalleryItem(props: Props) {
-    const [isOpen, setIsOpen] = React.useState(false);
-
+    const [isOpen, setIsOpen] = useState(false);
     const optimizedHeight = (372 * props.height) / props.width
 
     return (

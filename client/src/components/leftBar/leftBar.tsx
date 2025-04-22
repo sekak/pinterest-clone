@@ -1,7 +1,6 @@
-import React from 'react'
 import { Link } from 'react-router'
-import Image from '../image/image'
-import { items } from './utils'
+import Image from '@/components/image/image'
+import { items } from '@/components/leftBar/utils'
 
 export default function LeftBar() {
 

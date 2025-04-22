@@ -1,6 +1,5 @@
-import React from 'react'
-import Image from '../image/image'
-import { Props } from './types'
+import Image from '@/components/image/image'
+import { Props } from '@/components/user/types'
 import { Link } from 'react-router'
 
 export default function User(data: Props) {

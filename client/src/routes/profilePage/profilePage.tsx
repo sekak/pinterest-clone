@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
-import Image from '../../components/image/image'
-import Gallery from '../../components/gallery/gallery';
-import Collection from '../../components/collection/collection';
+import { useState } from 'react'
+import Image from '@/components/image/image'
+import Gallery from '@/components/gallery/gallery';
+import Collection from '@/components/collection/collection';
 import { useParams } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
-import { fetchProfile } from '../../utils/fetch';
-import Buttons from './buttons';
-import Navigation from './navigation';
-import Loading from '../../utils/loading';
+import { fetchProfile } from '@/utils/fetch';
+import Buttons from '@/routes/profilePage/buttons';
+import Navigation from '@/routes/profilePage/navigation';
+import Loading from '@/utils/loading';
 
 export default function ProfilePage() {
 

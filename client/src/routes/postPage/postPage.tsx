@@ -1,19 +1,17 @@
-import React from 'react'
-import PostInteractions from '../../components/postInteractions/postInteractions'
-import User from '../../components/user/user'
-import Comments from '../../components/comments/comments'
-import Image from '../../components/image/image'
+import PostInteractions from '@/components/postInteractions/postInteractions'
+import User from '@/components/user/user'
+import Comments from '@/components/comments/comments'
+import Image from '@/components/image/image'
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router'
-import { fetchPin } from '../../utils/fetch'
-import Loading from '../../utils/loading'
-import ErrorServer from '../../components/handleErr/ErrorServer'
+import { fetchPin } from '@/utils/fetch'
+import Loading from '@/utils/loading'
+import ErrorServer from '@/components/handleErr/ErrorServer'
 
 export default function PostPage() {
 
     const { id } = useParams()
-
     const { data, isPending, error } = useQuery({
         queryKey: ['pin', 'profile', id],
         queryFn: () => fetchPin(id)
@@ -22,10 +20,6 @@ export default function PostPage() {
     const handleArrowClick = () => {
         window.history.back();
     }
-
-    if (isPending) return <div>
-
-    </div>
 
     if (error) return <ErrorServer/>
     if (isPending) return <Loading/>

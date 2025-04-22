@@ -51,3 +51,8 @@ export const createPin = async (data) => {
   const res = await apiRequest.post('/pins/create', data)
   return res.data;
 };
+
+export const addComment = async (data) => {
+  const res = await apiRequest.post('/comments/create', data);
+  return res.data;
+}

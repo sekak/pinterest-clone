@@ -1,18 +1,13 @@
-import React from 'react'
 import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
-import { apiRequest } from '../../utils/apiRequest';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
-
-const addComment = async (data) => {
-    const res = await apiRequest.post('/comments/create', data);
-    return res.data;
-}
+import { useState } from 'react';
+import { addComment } from '@/utils/fetch';
 
 export default function CommentForm({ pin }: { pin: string }) {
 
-    const [content, setContent] = React.useState<string>('');
-    const [showEmojiPicker, setShowEmojiPicker] = React.useState<boolean>(false);
+    const [content, setContent] = useState<string>('');
+    const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
 
     const handleClickEmoji = (emoji: EmojiClickData) => {
         if (emoji.emoji) setContent(prev => prev + emoji.emoji.trim());
@@ -36,7 +31,6 @@ export default function CommentForm({ pin }: { pin: string }) {
         });
         setContent('');
     }
-
 
     return (
         <form onSubmit={handleSubmit} className="bg-gray-200 mr-4 mt-6 rounded-xl flex justify-between items-center px-3 relative">

@@ -1,8 +1,7 @@
-import React from 'react'
-import Layers from './layers'
-import WorkSpace from './workSpace'
-import Options from './options'
-import { Img } from '../../routes/createPage/types'
+import Layers from '@/components/editor/layers'
+import WorkSpace from '@/components/editor/workSpace'
+import Options from '@/components/editor/options'
+import { Img } from '@/routes/createPage/types'
 
 export default function Editor({previewImg}: {previewImg: Img}) {
 

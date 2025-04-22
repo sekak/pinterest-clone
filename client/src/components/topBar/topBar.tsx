@@ -1,5 +1,4 @@
-import React, { use } from 'react'
-import UserButton from '../userButton/userButton'
+import UserButton from '@/components/userButton/userButton'
 import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from 'react-router'
 

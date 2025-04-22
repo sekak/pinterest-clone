@@ -1,12 +1,11 @@
-import React from 'react'
-import Image from '../image/image'
+import Image from '@/components/image/image'
 import { useQuery } from '@tanstack/react-query'
-import { fetchBoards } from '../../utils/fetch'
-import { Props } from './types'
+import { fetchBoards } from '@/utils/fetch'
+import { Props } from '@/components/collection/types'
 import { Link } from 'react-router'
 import {format} from  'timeago.js'
-import Loading from '../../utils/loading'
-import ErrorServer from '../handleErr/ErrorServer'
+import Loading from '@/utils/loading'
+import ErrorServer from '@/components/handleErr/ErrorServer'
 
 export default function Collection({ userId }: { userId: string }) {
   const { data, isPending, error } = useQuery({

@@ -1,16 +1,15 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './style.css'
-import React from 'react';
 import { BrowserRouter, Route, Routes } from "react-router";
-import HomePage from './routes/homePage/homePage.js';
-import PostPage from './routes/postPage/postPage.js';
-import CreatePage from './routes/createPage/createPage.js';
-import ProfilePage from './routes/profilePage/profilePage.js';
-import SearchPage from './routes/searchPage/searchPage.js';
-import MainlyLayouts from './routes/layouts/mainlyLayouts.js';
-import Register from './routes/authPage/register.js';
-import Login from './routes/authPage/login.js';
+import PostPage from '@/routes/postPage/postPage';
+import CreatePage from '@/routes/createPage/createPage';
+import ProfilePage from '@/routes/profilePage/profilePage';
+import SearchPage from '@/routes/searchPage/searchPage';
+import MainlyLayouts from '@/routes/layouts/mainlyLayouts';
+import Register from '@/routes/authPage/register';
+import Login from '@/routes/authPage/login';
+import HomePage from '@/routes/homePage/homePage';
 import {
   QueryClient,
   QueryClientProvider,

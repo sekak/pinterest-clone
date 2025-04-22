@@ -1,5 +1,4 @@
-import React from 'react'
-import Gallery from '../../components/gallery/gallery'
+import Gallery from '@/components/gallery/gallery'
 import { useSearchParams } from 'react-router'
 
 export default function SearchPage() {

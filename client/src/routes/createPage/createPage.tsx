@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import Header from './header';
-import PinForm from './pinForm';
-import PinImage from './pinImage';
-import Editor from '../../components/editor/editor';
+import { useEffect, useRef, useState } from 'react';
+import Header from '@/routes/createPage/header';
+import PinForm from '@/routes/createPage/pinForm';
+import PinImage from '@/routes/createPage/pinImage';
+import Editor from '@/components/editor/editor';
 import { useNavigate } from 'react-router';
-import useStore from '../../utils/authStore';
-import { Img } from './types';
+import useStore from '@/utils/authStore';
+import { Img } from '@/routes/createPage/types';
 import { useMutation } from '@tanstack/react-query';
-import { useEditorStore } from '../../utils/editorStore';
-import { createPin } from '../../utils/fetch';
+import { useEditorStore } from '@/utils/editorStore';
+import { createPin } from '@/utils/fetch';
 
 
 export default function CreatePage() {
 
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [file, setFile] = React.useState<File | null>(null);
-  const [previewImg, setPreviewImg] = React.useState<Img | null>(null);
+  const [file, setFile] = useState<File | null>(null);
+  const [previewImg, setPreviewImg] = useState<Img | null>(null);
   const { currentUser } = useStore()
   const navigate = useNavigate();
   const { textOptions, canvasOptions } = useEditorStore()
-  const formRef = React.useRef<HTMLFormElement | null>(null);
+  const formRef = useRef<HTMLFormElement | null>(null);
 
   const mutation = useMutation({
     mutationFn: createPin,

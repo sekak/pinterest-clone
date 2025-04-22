@@ -1,6 +1,5 @@
-import React from 'react'
 
-export default function PinForm({formRef, isImageExist}: {formRef: React.RefObject<HTMLFormElement | null>, isImageExist:boolean}) {
+export default function PinForm({ formRef, isImageExist }: { formRef: React.RefObject<HTMLFormElement | null>, isImageExist: boolean }) {
     return (
         <form className={`flex flex-col gap-6 w-full ${!isImageExist && 'opacity-40 pointer-events-none'}`} ref={formRef}>
             <div className="flex flex-col gap-2">

@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from 'react';
-import { Img } from '../../routes/createPage/types';
-import { useEditorStore } from '../../utils/editorStore';
-import Image from '../image/image';
-import { useStyle } from './utils/styles';
+import { useEffect, useRef } from 'react';
+import { Img } from '@/routes/createPage/types';
+import { useEditorStore } from '@/utils/editorStore';
+import Image from '@/components/image/image';
+import { useStyle } from '@/components/editor/utils/styles';
 
 export default function WorkSpace({ previewImg }: { previewImg: Img }) {
   const { textOptions, setTextOptions, setCurrentEditor, canvasOptions, setCanvasOptions } = useEditorStore();

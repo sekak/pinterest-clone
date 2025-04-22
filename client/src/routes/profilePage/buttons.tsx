@@ -1,9 +1,7 @@
-import React from 'react'
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { apiRequest } from '../../utils/apiRequest';
-import { fetchFollow } from '../../utils/fetch';
+import { fetchFollow } from '@/utils/fetch';
 
 export default function Buttons({ userId, isFollowing }: { userId: string, isFollowing: boolean }) {
 

@@ -1,7 +1,6 @@
-import React from 'react'
 import { format } from 'timeago.js'
-import { Props } from './types'
-import Image from '../image/image'
+import { Props } from '@/components/comments/types'
+import Image from '@/components/image/image'
 
 export default function Comment(comment: Props) {
 

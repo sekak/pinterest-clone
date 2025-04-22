@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
-import { Img } from '../../routes/createPage/types'
-import Image from '../image/image'
-import { useEditorStore } from '../../utils/editorStore'
+import { useEffect } from 'react'
+import { Img } from '@/routes/createPage/types'
+import Image from '@/components/image/image'
+import { useEditorStore } from '@/utils/editorStore'
 
 export default function Layers({ previewImg }: { previewImg: Img }) {
 

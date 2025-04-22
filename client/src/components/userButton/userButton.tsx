@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { Avatar, Menu, MenuItem, Tooltip } from "@mui/material";
+import { useState } from "react";
+import { Menu, MenuItem, Tooltip } from "@mui/material";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { apiRequest } from "../../utils/apiRequest";
+import { apiRequest } from "@/utils/apiRequest";
 import { Link, useNavigate } from "react-router";
-import useStore from "../../utils/authStore";
-import Image from '../image/image';
+import useStore from "@/utils/authStore";
+import Image from '@/components/image/image';
 
 export default function UserButton() {
     const { currentUser, removeCurrentUser } = useStore()
