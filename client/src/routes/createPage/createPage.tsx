@@ -7,13 +7,9 @@ import { useNavigate } from 'react-router';
 import useStore from '../../utils/authStore';
 import { Img } from './types';
 import { useMutation } from '@tanstack/react-query';
-import { apiRequest } from '../../utils/apiRequest';
 import { useEditorStore } from '../../utils/editorStore';
+import { createPin } from '../../utils/fetch';
 
-const createPin = async (data) => {
-  const res = await apiRequest.post('/pins/create',data)
-  return res.data;
-};
 
 export default function CreatePage() {
 
@@ -25,7 +21,6 @@ export default function CreatePage() {
   const { textOptions, canvasOptions } = useEditorStore()
   const formRef = React.useRef<HTMLFormElement | null>(null);
 
-
   const mutation = useMutation({
     mutationFn: createPin,
     onSuccess: (data) => {
@@ -34,11 +29,6 @@ export default function CreatePage() {
       }
     },
   })
-
-  useEffect(() => {
-    if (!currentUser)
-      navigate('/auth/login');
-  }, [currentUser, navigate]);
 
   useEffect(() => {
     if (!file) return
@@ -54,7 +44,10 @@ export default function CreatePage() {
     }
   }, [file])
 
-
+  useEffect(() => {
+    if (!currentUser)
+      navigate('/auth/login');
+  }, [currentUser, navigate]);
 
   // Handle public pin creation logic
   const handleSubmit = () => {
@@ -62,7 +55,7 @@ export default function CreatePage() {
       setIsEditing(false);
     }
     else {
-      if (formRef.current === null) return
+      if (formRef.current === null || !file) return
       const formData = new FormData(formRef.current);
       formData.append("media", file);
       formData.append("textOptions", JSON.stringify(textOptions));
@@ -72,16 +65,18 @@ export default function CreatePage() {
     }
   };
 
-
-
   return (
-    <div className="flex flex-col w-full h-full">
-      <Header isEditing={isEditing} setIsEditing={setIsEditing} handleSubmit={handleSubmit} />
+    <div className="flex flex-col w-full h-full overflow-hidden">
+      <Header isEditing={isEditing} setIsEditing={setIsEditing} handleSubmit={handleSubmit} isImageExist={previewImg ? true : false} />
       {isEditing ?
         (previewImg && <Editor previewImg={previewImg} />) :
-        (<div className="flex lg:items-start items-center justify-center mx-auto md:w-[60%] w-full my-8 gap-6 lg:flex-row flex-col p-2">
-          <PinImage previewImg={previewImg} setFile={setFile} isEditing={isEditing} setIsEditing={setIsEditing} />
-          <PinForm formRef={formRef} />
+        (<div className="flex lg:flex-row flex-col p-4 gap-4 h-full mt-10 lg:w-[1100px] md:w-[90%] w-full mx-auto">
+          <div className='flex-[.6] w-full'>
+            <PinImage previewImg={previewImg} setFile={setFile} isEditing={isEditing} setIsEditing={setIsEditing} />
+          </div>
+          <div className='flex-1 w-full'>
+            <PinForm formRef={formRef} isImageExist={previewImg ? true : false} />
+          </div>
         </div>)}
     </div>
   );

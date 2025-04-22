@@ -7,6 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchProfile } from '../../utils/fetch';
 import Buttons from './buttons';
 import Navigation from './navigation';
+import Loading from '../../utils/loading';
 
 export default function ProfilePage() {
 
@@ -14,12 +15,11 @@ export default function ProfilePage() {
   const { username } = useParams()
 
   const { data, isPending, error } = useQuery({
-    queryKey: ['profile', username],
+    queryKey: ['profile', 'interaction', username],
     queryFn: () => fetchProfile(username)
   })
 
-  if (isPending) return <div className='p-2'>Loading...</div>
-
+  if (isPending) return <Loading/>
   if (error) return <div className='p-2'>Not Found this user!</div>
 
   return (

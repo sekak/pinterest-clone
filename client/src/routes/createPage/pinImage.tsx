@@ -11,22 +11,22 @@ export default function PinImage(props: Props) {
     };
 
     return (
-        <div>
+        <div className=''>
             {props.previewImg?.url ?
-                <div className='relative w-full sm:min-w-[375px] h-[453px]'>
-                    <img src={props.previewImg?.url} alt='img' className='rounded-lg max-w-[375px]' />
+                <div className='relative flex justify-center overflow-hidden'>
+                    <img src={props.previewImg?.url} alt='img' className='rounded-[40px]' />
                     <Image
                         media='/general/edit.svg'
-                        className='absolute top-2 right-2 bg-gray-200/40 hover:bg-gray-200 rounded-full p-2 cursor-pointer'
-                        onClick={()=>props.setIsEditing?.(true)}
+                        className='w-10 h-10 absolute top-3 right-3 bg-white hover:bg-gray-200 rounded-full p-2 cursor-pointer'
+                        onClick={() => props.setIsEditing?.(true)}
                     />
                 </div>
                 :
-                <div className="bg-gray-200/80 border-dashed border-2 border-gray-300/80 p-4 rounded-xl text-center w-full sm:min-w-[375px] h-[453px] flex flex-col items-center justify-center relative">
-                    <label htmlFor="file-upload" className="flex flex-col items-center cursor-pointer">
-                        <FileUploadOutlinedIcon className="h-10 w-10" />
-                        <span>{props.previewImg?.name ? props.previewImg.name : 'Choose a file'}</span>
-                    </label>
+                <label htmlFor="file-upload" className="cursor-pointer bg-gray-200/80 border-dashed border-2 border-gray-300/80 p-4 rounded-[60px] text-center h-[453px] flex flex-col items-center justify-center relative">
+                    <div className='rounded-full bg-black p-2'>
+                        <FileUploadOutlinedIcon className="h-10 w-10 text-white" />
+                    </div>
+                    <span className='font-bold mt-2'>{props.previewImg?.name ? props.previewImg.name : 'Choose a file'}</span>
                     <input
                         id="file-upload"
                         type="file"
@@ -38,7 +38,7 @@ export default function PinImage(props: Props) {
                     <p className="absolute bottom-4 p-2 text-sm">
                         We recommend using high quality .jpg files less than 20 MB or .mp4 files less than 200 MB.
                     </p>
-                </div>
+                </label>
             }
         </div>
     )

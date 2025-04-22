@@ -4,18 +4,20 @@ import { useInfiniteQuery } from '@tanstack/react-query'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { fetchPins } from '../../utils/fetch'
 import { Props } from './types'
+import Loading from '../../utils/loading'
+import ErrorServer from '../handleErr/ErrorServer'
 
 export default function Gallery(props: Props) {
-    
-    const { data, status, hasNextPage, fetchNextPage } = useInfiniteQuery({
+
+    let { data, status, hasNextPage, fetchNextPage } = useInfiniteQuery({
         queryKey: ['pins', props.search, props.userId, props.board_id],
         queryFn: ({ pageParam }) => fetchPins(pageParam, props.search, props.userId, props.board_id),
         initialPageParam: 0,
         getNextPageParam: (data) => data.nextCursor
     })
 
-    if (status === "error") return <div>Something went wrong</div>
-    if (status === "pending") return <div>Loading...</div>
+    if (status === "error") return <ErrorServer />
+    if (status === "pending") return <Loading />
 
     const allPins = data?.pages.flatMap(page => page.pins) || []
 
@@ -24,7 +26,7 @@ export default function Gallery(props: Props) {
             dataLength={allPins.length}
             next={fetchNextPage}
             hasMore={!!hasNextPage}
-            loader={<b className='text-center'>Loading...</b>}
+            loader={<Loading />}
             endMessage={
                 <p className='text-center'>
                     <b>Yay! You have seen it all</b>

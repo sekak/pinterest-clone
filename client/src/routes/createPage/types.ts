@@ -12,4 +12,5 @@ export interface Props {
     file?: File | null;
     setFile?: (value: File) => void;
     previewImg?: Img | null;
+    isImageExist?: boolean;
 }

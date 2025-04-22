@@ -1,7 +1,5 @@
 export interface Props {
-  firstPin: {
-    media: string;
-  };
+  media: string;
   countPin: number;
   title: string;
   createdAt: string;
