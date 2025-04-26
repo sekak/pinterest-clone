@@ -1,8 +1,13 @@
 {
-    "compilerOptions": {
-      "paths": {
-        "@/*": ["./src/*"],
-      },
-      "jsx": "react-jsx"
-    }
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "es2020",
+    "moduleResolution": "node",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+    },
+    "jsx": "react-jsx"
   }
+}
