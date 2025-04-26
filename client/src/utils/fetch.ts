@@ -26,9 +26,9 @@ export const fetchProfile = async (username: string | undefined) => {
 };
 
 export const fetchBoards = async (userId: string) => {
-  if (!userId) return;
-  const res = await apiRequest.get(`/boards/${userId}`);
-  return res.data;
+  if (!userId) return []; // Return empty array instead of undefined
+  const res = await apiRequest.get(`boards/${userId}`);
+  return res.data || []; // Fallback to empty array if res.data is falsy
 };
 
 export const fetchComments = async (pinId: string) => {
