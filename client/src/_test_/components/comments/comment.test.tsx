@@ -3,15 +3,16 @@ import { Props } from '@/components/comments/types'
 import { render, screen } from '@testing-library/react'
 import { vi } from 'vitest'
 
-
 vi.mock('timeago.js', () => ({
     format: vi.fn((date: string) => `formatted-${date}`),
 }))
 
 vi.mock('imagekitio-react', () => ({
-    IKImage: (props: any) => (
-        <img {...props} />
-    ),
+    IKImage: (props: any) => {
+        const { urlEndpoint, ...restProps } = props;
+        return <img {...restProps} />
+
+    }
 }))
 
 describe('Comment Component', () => {

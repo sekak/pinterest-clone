@@ -7,7 +7,7 @@ export default function Editor({previewImg}: {previewImg: Img}) {
 
   return (
     <div className='flex gap-4 h-full w-full'>
-      <Layers previewImg={previewImg}/>
+      <Layers/>
       <WorkSpace previewImg={previewImg}/>
       <Options previewImg={previewImg}/>
     </div>

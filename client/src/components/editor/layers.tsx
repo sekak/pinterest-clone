@@ -1,9 +1,8 @@
 import { useEffect } from 'react'
-import { Img } from '@/routes/createPage/types'
 import Image from '@/components/image/image'
 import { useEditorStore } from '@/utils/editorStore'
 
-export default function Layers({ previewImg }: { previewImg: Img }) {
+export default function Layers() {
 
   const { currentEditor, setCurrentEditor, addText, canvasOptions} = useEditorStore()
 

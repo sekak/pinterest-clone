@@ -4,12 +4,14 @@ import { HexColorPicker } from 'react-colorful';
 import { OptionsProps } from '@/components/editor/utils/types';
 import { landscapeSizes, portraitSizes } from './utils/variant';
 import { useState } from 'react';
+import Color from '@/components/editor/optionContent/color';
+import Alignment from '@/components/editor/optionContent/alignment';
 
 
 export default function Options({ previewImg }: { previewImg: Img }) {
   const { textOptions, currentEditor, setTextOptions, canvasOptions, setCanvasOptions } = useEditorStore();
   const [isBgColorPickerOpen, setIsBgColorPickerOpen] = useState<boolean>(false);
-  const [isTextColorPickerOpen, setIsTextColorPickerOpen] = useState<boolean>(false);
+  // const [isTextColorPickerOpen, setIsTextColorPickerOpen] = useState<boolean>(false);
 
   const isOrientationImg = previewImg.width > previewImg.height ? 'landscape' : 'portrait';
 
@@ -87,40 +89,10 @@ export default function Options({ previewImg }: { previewImg: Img }) {
           </div>
 
           {/* Text Color */}
-          <div className="flex flex-col gap-2">
-            <span className="font-medium text-gray-700">Color</span>
-            <div className="relative">
-              <div
-                onClick={() => setIsTextColorPickerOpen(prev => !prev)}
-                className="w-10 h-10 rounded-full cursor-pointer border border-gray-300 shadow-sm"
-                style={{ backgroundColor: textOptions.color }}
-              />
-              {isTextColorPickerOpen && (
-                <div className="absolute z-10 top-12 left-0">
-                  <HexColorPicker
-                    color={textOptions.color}
-                    onChange={(color) => setTextOptions({ ...textOptions, color })}
-                  />
-                </div>
-              )}
-            </div>
-          </div>
+            <Color/>
 
           {/* Alignment */}
-          <div className="flex flex-col gap-2">
-            <span className="font-medium text-gray-700">Alignment</span>
-            <div className="flex space-x-2">
-              {['left', 'center', 'right'].map((align) => (
-                <button
-                  key={align}
-                  onClick={() => setTextOptions({ ...textOptions, align })}
-                  className={`p-2 rounded ${textOptions.align === align ? 'bg-emerald-500 text-white' : 'bg-gray-100'}`}
-                >
-                  {align.charAt(0).toUpperCase() + align.slice(1)}
-                </button>
-              ))}
-            </div>
-          </div>
+          <Alignment/>
 
           {/* Text Styles */}
           <div className="flex flex-col gap-2">

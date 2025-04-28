@@ -1,34 +1,30 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClientProvider } from '@tanstack/react-query'
 import { MemoryRouter } from 'react-router-dom'
 import { fetchBoards } from '@/utils/fetch'
 import Collection from '@/components/collection/collection'
 import { mockLoading } from '@/_test_/_mocks_/mockLoading'
 import { mockErrorServer } from '@/_test_/_mocks_/mockError'
+import { queryClient } from '@/_test_/_mocks_/mockQueryClient'
 
 // Mock dependencies
 vi.mock('@/utils/fetch', () => ({
   fetchBoards: vi.fn(),
 }))
 
+vi.mock('@/utils/loading', () => ({
+  default: () => {
+    return <h1>Loading...</h1>;
+  }
+}));
 
-mockLoading()
 mockErrorServer()
 
 // Mock timeago.js format function
 vi.mock('timeago.js', () => ({
   format: vi.fn((date: string) => `formatted-${date}`),
 }))
-
-// Create a QueryClient for testing
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: false,
-    },
-  },
-})
 
 // Wrapper component to provide QueryClient and MemoryRouter
 const wrapper = ({ children }: { children: React.ReactNode }) => (
@@ -63,8 +59,7 @@ describe('Collection Component', () => {
     vi.mocked(fetchBoards).mockImplementation(() => new Promise(() => {})) // Simulate pending state
     render(<Collection userId="123" />, { wrapper })
 
-    const svg = screen.getByTestId('loading-svg')
-    expect(svg).toBeInTheDocument()  
+    expect(await screen.findByText(/Loading.../i)).toBeInTheDocument()  
   })
 
   it('renders error state', async () => {
