@@ -1,5 +1,3 @@
-import { useCallback } from "react";
-
 export const useStyle = (textOptions,canvasOptions) => {
     const textContainerStyles: React.CSSProperties = {
         width: '100%',
@@ -9,7 +7,6 @@ export const useStyle = (textOptions,canvasOptions) => {
         left: `${textOptions.left}px`,
         position: 'absolute',
       };
-    
     
       const inputStyles = {
         width: '100%',

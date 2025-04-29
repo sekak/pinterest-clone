@@ -2,7 +2,6 @@ import { Props } from '@/routes/createPage/types';
 import { Button } from '@mui/material';
 
 export default function Header(props: Props) {
-    console.log(props.isEditing, props.isImageExist)
     return (
         <div className="flex items-center justify-between border-b border-t border-b-gray-300 border-t-gray-300 p-4">
             <h1 className="font-bold text-lg">{props.isEditing ? 'Edit Pin' : 'Create Pin'}</h1>

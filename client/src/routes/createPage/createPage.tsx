@@ -17,7 +17,7 @@ export default function CreatePage() {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [file, setFile] = useState<File | null>(null);
   const [previewImg, setPreviewImg] = useState<Img | null>(null);
-  const [errors, setErrors] = useState<{name:string, message:string}[] | null>([null]);
+  const [errors, setErrors] = useState<{name:string, message:string}[] | null>(null);
 
   const { currentUser } = useStore()
   const navigate = useNavigate();
