@@ -77,6 +77,7 @@ export default function WorkSpace({ previewImg }: { previewImg: Img }) {
               onMouseDown={handleMouseDown}
             >
               <input
+                data-testid="text-input"
                 value={textOptions.text}
                 onChange={(e) =>
                   setTextOptions({ ...textOptions, text: e.target.value })
@@ -86,6 +87,7 @@ export default function WorkSpace({ previewImg }: { previewImg: Img }) {
               />
             </div>
             <div
+              data-testid="delete-icon"
               className="absolute top-2 right-2 bg-white rounded-full p-2 cursor-pointer"
               onClick={handleDelete}
             >

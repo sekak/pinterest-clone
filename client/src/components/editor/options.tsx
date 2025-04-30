@@ -3,11 +3,11 @@ import { useEditorStore } from '@/utils/editorStore';
 import { OptionsType } from '@/components/editor/utils/types';
 import Color from '@/components/editor/optionContent/color';
 import Alignment from '@/components/editor/optionContent/alignment';
-import TextStyle from './optionContent/textStyle';
-import FontSize from './optionContent/fontSize';
-import Orientation from './orientationContent/orientation';
-import Size from './orientationContent/size';
-import BackgroundColor from './orientationContent/backgroundColor';
+import TextStyle from '@/components/editor/optionContent/textStyle';
+import FontSize from '@/components/editor/optionContent/fontSize';
+import Orientation from '@/components/editor/orientationContent/orientation';
+import Size from '@/components/editor/orientationContent/size';
+import BackgroundColor from '@/components/editor/orientationContent/backgroundColor';
 
 export default function Options({ previewImg }: { previewImg: Img }) {
   const { currentEditor, canvasOptions, setCanvasOptions } = useEditorStore();
@@ -71,16 +71,13 @@ export default function Options({ previewImg }: { previewImg: Img }) {
     <div className="flex-1 w-full h-full overflow-hidden">
       {currentEditor === 'text' ? (
         <div className="py-4 pr-4 space-y-6 mt-6">
-          {/* Font Size, COLORS, ALIGNMENT, TEXTSTYLE */}
           <FontSize />
           <Color />
           <Alignment />
           <TextStyle />
         </div>
-
       ) : (
         <div className="py-2 pr-4 space-y-6 mt-6">
-          {/* Orientation, Size, BackgroundColor */}
           <Orientation handleClickOrientation={handleClickOrientation} canvasOptions={canvasOptions} />
           <Size handleClickSize={handleClickSize} canvasOptions={canvasOptions} />
           <BackgroundColor canvasOptions={canvasOptions} setCanvasOptions={setCanvasOptions} />
