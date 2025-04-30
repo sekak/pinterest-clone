@@ -9,6 +9,7 @@ export default function BackgroundColor(props: backgroundType) {
     <div className="flex flex-col gap-2 relative">
       <span className="font-medium">Background Color</span>
       <div
+        data-testid="background-color"
         onClick={() => setIsBgColorPickerOpen(prev => !prev)}
         className="w-8 h-8 rounded-full cursor-pointer border border-gray-300"
         style={{ backgroundColor: props.canvasOptions.backgroundColor }}

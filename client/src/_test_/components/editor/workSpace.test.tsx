@@ -1,11 +1,3 @@
-//render correctly
-//turn textOptions.text into a string
-// and check if it is empty
-//check input and divs returned
-// try to delete the textOptions.text
-// check if the textOptions.text is empty
-// check it setCurrentEditor is called and empty string is passed
-
 import WorkSpace from "@/components/editor/workSpace"
 import { fireEvent, render, screen } from "@testing-library/react"
 import { vi } from "vitest"
