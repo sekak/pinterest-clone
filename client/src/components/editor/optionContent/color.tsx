@@ -11,6 +11,7 @@ export default function Color() {
             <span className="font-medium text-gray-700">Color</span>
             <div className="relative">
                 <div
+                    data-testid="clickable-color"
                     onClick={() => setIsTextColorPickerOpen(prev => !prev)}
                     className="w-10 h-10 rounded-full cursor-pointer border border-gray-300 shadow-sm"
                     style={{ backgroundColor: textOptions.color }}
