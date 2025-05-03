@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, renderHook } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { vi } from 'vitest';
 import Color from '@/components/editor/optionContent/color';
 

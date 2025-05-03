@@ -4,7 +4,6 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import { MemoryRouter } from 'react-router-dom'
 import { fetchBoards } from '@/utils/fetch'
 import Collection from '@/components/collection/collection'
-import { mockLoading } from '@/_test_/_mocks_/mockLoading'
 import { mockErrorServer } from '@/_test_/_mocks_/mockError'
 import { queryClient } from '@/_test_/_mocks_/mockQueryClient'
 

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router'
 export default function TopBar() {
   
   const navigate = useNavigate()
-  const handleSearch = (e) => {
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     
     const search = e.target[0].value
