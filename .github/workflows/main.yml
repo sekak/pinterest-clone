@@ -21,15 +21,15 @@ jobs:
 
       - name: Install frontend dependencies
         run: |
-          cd frontend
+          cd client
           npm install
 
       - name: Build frontend
         run: |
-          cd frontend
+          cd client
           npm run build
 
       - name: Run frontend tests
         run: |
-          cd frontend
+          cd client
           npm test
