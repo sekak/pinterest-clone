@@ -32,4 +32,4 @@ jobs:
       - name: Run frontend tests
         run: |
           cd client
-          npm test
+          npm run test
