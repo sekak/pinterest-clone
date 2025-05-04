@@ -18,6 +18,12 @@ vi.mock('@/utils/loading', () => ({
   }
 }));
 
+vi.mock('imagekitio-react', () => ({
+  IKImage: (props: any) => {
+    return <img {...props} />
+  }
+}))
+
 mockErrorServer()
 
 // Mock timeago.js format function
@@ -55,10 +61,10 @@ describe('Collection Component', () => {
   })
 
   it('renders loading state', async () => {
-    vi.mocked(fetchBoards).mockImplementation(() => new Promise(() => {})) // Simulate pending state
+    vi.mocked(fetchBoards).mockImplementation(() => new Promise(() => { })) // Simulate pending state
     render(<Collection userId="123" />, { wrapper })
 
-    expect(await screen.findByText(/Loading.../i)).toBeInTheDocument()  
+    expect(await screen.findByText(/Loading.../i)).toBeInTheDocument()
   })
 
   it('renders error state', async () => {

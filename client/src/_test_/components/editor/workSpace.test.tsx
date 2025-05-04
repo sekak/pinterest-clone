@@ -5,6 +5,12 @@ import { vi } from "vitest"
 let mockTextOptions = vi.fn()
 let mockCurrentEditor = vi.fn()
 
+vi.mock('imagekitio-react', () => ({
+    IKImage: (props: any) => {
+        return <img {...props} />
+    }
+}))
+
 vi.mock('@/utils/editorStore', () => ({
     useEditorStore: () => ({
         textOptions: {
@@ -36,7 +42,7 @@ describe('WorkSpace component', () => {
         width: 100,
         height: 100,
     }
-    
+
     it('should render correctly', () => {
         render(<WorkSpace previewImg={previewImg} />)
 
@@ -51,7 +57,7 @@ describe('WorkSpace component', () => {
 
         const input = screen.getByTestId('text-input') as HTMLInputElement
         fireEvent.change(input, { target: { value: 'hello' } })
-        
+
         expect(mockTextOptions).toHaveBeenCalledWith({
             text: 'hello',
             left: 0,
