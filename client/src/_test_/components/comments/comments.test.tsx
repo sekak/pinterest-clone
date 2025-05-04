@@ -2,7 +2,7 @@ import { mockErrorServer } from "@/_test_/_mocks_/mockError"
 import { queryClient } from "@/_test_/_mocks_/mockQueryClient"
 import Comments from "@/components/comments/comments"
 import { QueryClientProvider } from "@tanstack/react-query"
-import { fireEvent, render, screen } from "@testing-library/react"
+import { fireEvent, render, screen, waitFor } from "@testing-library/react"
 import * as React from "react"
 import { MemoryRouter } from "react-router"
 import { vi } from "vitest"
@@ -23,8 +23,24 @@ vi.mock('@/utils/loading', () => ({
     }
 }));
 
-
 mockErrorServer()
+
+vi.mock('@/components/comments/comment', () => ({
+    default: (props: any) => {
+        return <div >
+            {props.description}
+        </div>
+    }
+}))
+
+vi.mock('@/components/comments/commentForm', () => ({
+    default: (props: any) => {
+        return <form data-testid="form">
+            <input data-testid="input" />
+            <button data-testid="send" type="submit">Send</button>
+        </form>
+    }
+}))
 
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
@@ -71,17 +87,17 @@ describe('Comments Component', () => {
         vi.mocked(fetchComments).mockResolvedValue(mockData)
         render(<Comments pin="123" />, { wrapper })
 
-        expect(await screen.findByText(/Show/i)).toBeInTheDocument()
-        expect(await screen.findByText(/ Comments/i)).toBeInTheDocument()
-        expect(await screen.findByText(/ Comments/i)).toBeInTheDocument()
+        await waitFor(() => {
+            screen.debug()
+            expect(screen.getByText('2 Comments')).toBeInTheDocument()
+            expect(screen.getByTestId('form')).toBeInTheDocument()
+            expect(screen.getByText('Send')).toBeInTheDocument()
 
-        fireEvent.click(screen.getByText(/Show/i))
-
-        expect(await screen.findByText(/Hide/i)).toBeInTheDocument()
-        expect(await screen.findByText(/comment1/i)).toBeInTheDocument()
-        expect(await screen.findByText(/comment2/i)).toBeInTheDocument()
-
-        expect(screen.getByTestId('form')).toBeInTheDocument()
+            fireEvent.click(screen.getByText('Show'))
+            expect(screen.getByText('comment1')).toBeInTheDocument()
+            expect(screen.getByText('comment2')).toBeInTheDocument()
+            expect(screen.getByText('Hide')).toBeInTheDocument()
+        })
     })
 
 })
