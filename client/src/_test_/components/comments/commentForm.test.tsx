@@ -1,7 +1,7 @@
 import { queryClient } from "@/_test_/_mocks_/mockQueryClient";
 import CommentForm from "@/components/comments/commentForm";
 import { addComment } from "@/utils/fetch";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { fireEvent, render, screen, waitFor, } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import { vi } from "vitest";

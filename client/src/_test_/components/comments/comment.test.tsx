@@ -9,9 +9,7 @@ vi.mock('timeago.js', () => ({
 
 vi.mock('imagekitio-react', () => ({
     IKImage: (props: any) => {
-        const { urlEndpoint, ...restProps } = props;
-        return <img {...restProps} />
-
+        return <img {...props} />
     }
 }))
 

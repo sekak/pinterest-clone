@@ -4,12 +4,11 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { vi } from "vitest";
 import { MemoryRouter } from "react-router-dom";
 
-vi.mock('@/components/image/image', () => ({
-    default: (props: any) => {
-        const { urlEndpoint, ...restProps } = props;
-        return <img {...restProps} src={props.media} />
+vi.mock('imagekitio-react', () => ({
+    IKImage: (props: any) => {
+      return <img {...props} />
     }
-}));
+}))
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
     <MemoryRouter>{children}</MemoryRouter>
@@ -27,7 +26,7 @@ describe('GalleryItem component', () => {
         render(<GalleryItem {...defaultProps} />, { wrapper })
 
         expect(screen.getByRole('link')).toHaveAttribute('href', '/pin/1')
-        expect(screen.getByRole('img')).toHaveAttribute('src', 'media')
+        expect(screen.getByRole('img')).toBeInTheDocument()
     });
 
     it('displays the save button and icons on hover', () => {

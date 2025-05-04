@@ -34,7 +34,6 @@ export default function Comments({ pin }: { pin: string }) {
                     ))}
                 </div>
             </div>
-
             <CommentForm pin={pin}/>
         </div>
     );

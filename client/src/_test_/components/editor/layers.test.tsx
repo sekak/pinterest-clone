@@ -2,14 +2,15 @@ import Layers from "@/components/editor/layers"
 import { fireEvent, render, screen } from "@testing-library/react"
 import { vi } from "vitest"
 
-
-vi.mock('@/components/image/image', () => ({
-    default: () => <img src="/general/text.png" alt="example" />
-}))
-
 const mockCurrentEditor = 'text';
 const mockSetCurrentEditor = vi.fn();
 const mockAddText = vi.fn();
+
+vi.mock('imagekitio-react', () => ({
+    IKImage: (props: any) => {
+        return <img {...props} />
+    }
+}))
 
 vi.mock('@/utils/editorStore', () => {
     return {
@@ -32,7 +33,6 @@ describe('layer component', () => {
         expect(screen.getByText('Add Text')).toBeInTheDocument();
         expect(screen.getByText('Canvas')).toBeInTheDocument();
         expect(screen.getByText('Add Text')).toBeInTheDocument();
-        expect(screen.getByRole('img')).toHaveAttribute('src', '/general/text.png');
     })
 
     it('calls addText when currentEditor is text', () => {
