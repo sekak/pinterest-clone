@@ -7,7 +7,6 @@ vi.mock('@tanstack/react-query', async () => { return { useInfiniteQuery: vi.fn(
 
 vi.mock('@/components/galleryItem/galleryItem', () => ({
     default: (props: any) => {
-        console.log(props)
         return <div >
             {props._id}
         </div>
