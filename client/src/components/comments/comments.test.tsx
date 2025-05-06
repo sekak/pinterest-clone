@@ -1,10 +1,10 @@
-import { mockErrorServer } from "@/_test_/_mocks_/mockError"
-import { queryClient } from "@/_test_/_mocks_/mockQueryClient"
+import { mockErrorServer } from "@/_mocks_/mockError"
+import { queryClient } from "@/_mocks_/mockQueryClient"
 import Comments from "@/components/comments/comments"
 import { QueryClientProvider } from "@tanstack/react-query"
 import { fireEvent, render, screen, waitFor } from "@testing-library/react"
 import * as React from "react"
-import { MemoryRouter } from "react-router"
+import { MemoryRouter } from "react-router-dom"
 import { vi } from "vitest"
 import { fetchComments } from "@/utils/fetch"
 
@@ -88,7 +88,6 @@ describe('Comments Component', () => {
         render(<Comments pin="123" />, { wrapper })
 
         await waitFor(() => {
-            screen.debug()
             expect(screen.getByText('2 Comments')).toBeInTheDocument()
             expect(screen.getByTestId('form')).toBeInTheDocument()
             expect(screen.getByText('Send')).toBeInTheDocument()

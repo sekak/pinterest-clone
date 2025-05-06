@@ -1,4 +1,4 @@
-import { queryClient } from "@/_test_/_mocks_/mockQueryClient"
+import { queryClient } from "@/_mocks_/mockQueryClient"
 import PostInteractions from "@/components/postInteractions/postInteractions"
 import { apiRequest } from "@/utils/apiRequest"
 import { QueryClientProvider } from "@tanstack/react-query"
