@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './style.css'
-import { BrowserRouter, Route, Routes } from "react-router";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import PostPage from '@/routes/postPage/postPage';
 import CreatePage from '@/routes/createPage/createPage';
 import ProfilePage from '@/routes/profilePage/profilePage';

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Menu, MenuItem, Tooltip } from "@mui/material";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { apiRequest } from "@/utils/apiRequest";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
 import useStore from "@/utils/authStore";
 import Image from '@/components/image/image';
 
