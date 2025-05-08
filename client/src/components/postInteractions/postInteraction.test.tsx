@@ -1,74 +1,96 @@
-import { queryClient } from "@/_mocks_/mockQueryClient"
-import PostInteractions from "@/components/postInteractions/postInteractions"
-import { apiRequest } from "@/utils/apiRequest"
-import { QueryClientProvider } from "@tanstack/react-query"
-import { fireEvent, render, screen, waitFor } from "@testing-library/react"
-import { vi } from "vitest"
-
-const wrapper = ({ children }: { children: React.ReactNode }) => (
-    <QueryClientProvider client={queryClient}>
-        {children}
-    </QueryClientProvider>
-)
-
-let mockLoading = false
-
-
-vi.mock('@tanstack/react-query', async () => {
-    const actual = await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query')
-    return {
-        ...actual,
-        useQuery: vi.fn(() => ({
-            isLoading: mockLoading,
-            data: {
-                isLiked: false,
-                isSaved: false,
-                countLikes: 0
-            }
-        })),
-    }
-})
-
-vi.mock('@/skeleton/interAction', () => ({
-    default: () => <div>Loading...</div>
-}))
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { QueryClientProvider } from '@tanstack/react-query';
+import PostInteractions from '@/components/postInteractions/postInteractions';
+import * as api from '@/utils/apiRequest';
+import * as fetchUtils from '@/utils/fetch';
+import { queryClient } from '@/_mocks_/mockQueryClient';
 
 vi.mock('@/utils/apiRequest', () => ({
-    apiRequest: {
-        post: vi.fn(() => Promise.resolve({}))
-    }
-}))
+  apiRequest: {
+    post: vi.fn()
+  }
+}));
 
+vi.mock('@/utils/fetch', () => ({
+  InterActionFn: vi.fn()
+}));
 
-describe('PostInteraction Component', () => {
-    it('renders loading state', () => {
-        mockLoading = true
-        render(<PostInteractions id="123" />, { wrapper })
-        
-        expect(screen.getByText('Loading...')).toBeInTheDocument()
-    })
+const renderWithClient = (ui: React.ReactElement) => {
+  const testQueryClient = queryClient;
+  return render(
+    <QueryClientProvider client={testQueryClient}>
+      {ui}
+    </QueryClientProvider>
+  );
+};
 
-    it('renders interaction like button',async () => {
-        mockLoading = false
-        render(<PostInteractions id="123" />, { wrapper })
+describe('PostInteractions', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
 
-        fireEvent.click(screen.getByTestId('like-button'))
-        
-        await waitFor(() => {
-            expect(apiRequest.post).toHaveBeenCalledWith(`/pins/interaction/${'123'}`, { type: 'like' });
-        });        
-    })
-    
-    it('renders interaction save button',async () => {
-        mockLoading = false
-        render(<PostInteractions id="123" />, { wrapper })
+  it('renders like, share and save buttons for post variant', async () => {
+    vi.spyOn(fetchUtils, 'InterActionFn').mockResolvedValue({
+      isLiked: false,
+      isSaved: false,
+      countLikes: 10,
+    });
 
-        fireEvent.click(screen.getByTestId('save-button'))
-        
-        await waitFor(() => {
-            expect(apiRequest.post).toHaveBeenCalledWith(`/pins/interaction/${'123'}`, { type: 'save' });
-        });        
+    renderWithClient(<PostInteractions id="123" variant="post" />);
 
-        expect(screen.getByText('Save')).toBeInTheDocument()
-    })
-})
+    await waitFor(() => {
+      expect(screen.getByTestId('like-button')).toBeInTheDocument();
+    });
+
+    expect(screen.getByTestId('save-button')).toHaveTextContent('Save');
+    expect(screen.getByText('10')).toBeInTheDocument();
+  });
+
+  it('renders save button for gallery variant', async () => {
+    vi.spyOn(fetchUtils, 'InterActionFn').mockResolvedValue({
+      isLiked: false,
+      isSaved: true,
+      countLikes: 5,
+    });
+
+    renderWithClient(<PostInteractions id="123" variant="gallery" />);
+
+    await waitFor(() => {
+      expect(screen.getByTestId('save-button')).toBeInTheDocument();
+    });
+
+    expect(screen.getByTestId('save-button')).toHaveTextContent('Saved');
+  });
+
+  it('calls interaction mutation on like click', async () => {
+    const postMock = vi.spyOn(api.apiRequest, 'post').mockResolvedValue({});
+
+    vi.spyOn(fetchUtils, 'InterActionFn').mockResolvedValue({
+      isLiked: false,
+      isSaved: false,
+      countLikes: 1,
+    });
+
+    renderWithClient(<PostInteractions id="123" variant="post" />);
+
+    const likeButton = await screen.findByTestId('like-button');
+    fireEvent.click(likeButton);
+
+    await waitFor(() => {
+      expect(postMock).toHaveBeenCalledWith('/pins/interaction/123', { type: 'like' });
+    });
+  });
+
+  it('disables interaction if id is missing', async () => {
+    const postMock = vi.spyOn(api.apiRequest, 'post');
+
+    renderWithClient(<PostInteractions id={undefined} variant="post" />);
+
+    await waitFor(() => {
+      expect(screen.queryByTestId('like-button')).toBeInTheDocument();
+    });
+
+    expect(postMock).not.toHaveBeenCalled();
+  });
+});

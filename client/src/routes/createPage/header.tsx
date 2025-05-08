@@ -1,5 +1,4 @@
 import { Props } from '@/routes/createPage/types';
-import { Button } from '@mui/material';
 
 export default function Header(props: Props) {
     return (

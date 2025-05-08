@@ -5,12 +5,15 @@ import { fetchPins } from '@/utils/fetch'
 import { Props } from '@/components/gallery/types'
 import Loading from '@/utils/loading'
 import ErrorServer from '@/components/handleErr/ErrorServer'
+import useStore from '@/utils/authStore'
 
 export default function Gallery(props: Props) {
 
+    const { currentUser } = useStore()
+
     let { data, status, hasNextPage, fetchNextPage } = useInfiniteQuery({
-        queryKey: ['pins', props.search, props.userId, props.board_id],
-        queryFn: ({ pageParam }) => fetchPins(pageParam, props.search, props.userId, props.board_id),
+        queryKey: ['pins', props.search, props.userId, props.board_id, currentUser?._id],
+        queryFn: ({ pageParam }) => fetchPins(pageParam, props.search, props.userId, props.board_id, currentUser?._id),
         initialPageParam: 0,
         getNextPageParam: (data) => data.nextCursor
     })

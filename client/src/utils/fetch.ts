@@ -4,12 +4,13 @@ export const fetchPins = async (
   pageParam: number,
   search: string | null | undefined,
   userId: string | null | undefined,
-  board_id: string | null | undefined
+  board_id: string | null | undefined,
+  currentUserId: string | null | undefined
 ) => {
   const res = await apiRequest.get(
     `/pins?cursor=${pageParam}&search=${search || ""}&userId=${
       userId || ""
-    }&boardId=${board_id || ""}`
+    }&boardId=${board_id || ""}&currentUserId=${currentUserId || ""}`
   );
   return res.data;
 };
@@ -41,7 +42,7 @@ export const fetchFollow = async (userId: string) => {
   return res.data;
 };
 
-export const InterActionFn = async (id: string | undefined) => {
+export const InterActionFn = async (id: string | number | undefined) => {
   if (!id) return;
   const res = await apiRequest.get(`/pins/interaction-pin/${id}`);
   return res.data;
