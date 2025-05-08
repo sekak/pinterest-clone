@@ -10,6 +10,7 @@ export const getPins = async (req, res) => {
   const search = req.query.search;
   const userId = req.query.userId;
   const boardId = req.query.boardId;
+  const currentUserId = req.query.currentUserId;
   const LIMIT = 21;
 
   const pins = await Pin.find(
@@ -29,7 +30,30 @@ export const getPins = async (req, res) => {
     .limit(LIMIT)
     .skip(LIMIT * pageNumber);
 
-  const hasNextPage = pins.length === LIMIT;
+  let hasNextPage = pins.length === LIMIT;
+
+  if (currentUserId) {
+
+    const saved = await Save.find({
+      user: currentUserId,
+      pin: { $in: pins.map((pin) => pin._id) },
+    });
+
+    const pinsWithoutSaved = pins.filter((pin) => {
+      const isSaved = saved.find(
+        (s) => s.pin.toString() === pin._id.toString()
+      );
+      return !isSaved;
+    });
+
+    return res
+      .status(200)
+      .json({
+        pins: pinsWithoutSaved,
+        nextCursor: hasNextPage ? pageNumber + 1 : null,
+      });
+  }
+
   res
     .status(200)
     .json({ pins, nextCursor: hasNextPage ? pageNumber + 1 : null });
@@ -120,7 +144,6 @@ export const createPin = async (req, res) => {
         )},l-end`
       : ""
   }`;
-
 
   imagekit
     .upload({
