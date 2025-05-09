@@ -1,0 +1,16 @@
+services:
+  server:
+    build:
+      context: ./backend
+    env_file:
+      - ./backend/.env
+
+  client:
+    build:
+      context: ./client
+    ports:
+      - "4173:4173"
+    env_file:
+      - ./client/.env
+    depends_on:
+      - server

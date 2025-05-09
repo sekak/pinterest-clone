@@ -25,7 +25,7 @@ app.use('/api/comments', commentRouter)
 app.use('/api/follow', followRouter)
 
 
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
     connectDB()
     console.log('Server is running on http://localhost:3000')
 })

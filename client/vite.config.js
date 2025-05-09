@@ -15,4 +15,11 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'), // Maps @ to src/
     },
   },
+  server: {
+    host: true
+  },
+  preview:{
+    host: true,
+    port: 4173
+  }
 })
