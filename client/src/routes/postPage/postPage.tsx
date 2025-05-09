@@ -35,7 +35,7 @@ export default function PostPage() {
                     <Image media={data?.media} w="736" className='object-cover' />
                 </div>
                 <div className='flex-1 h-full w-full flex flex-col'>
-                    <PostInteractions id={id} />
+                    <PostInteractions id={id} variant='post'/>
                     <div>
                         <h1 className='px-4 line-clamp-2 text-[28px] font-bold'>{data?.title}</h1>
                     </div>

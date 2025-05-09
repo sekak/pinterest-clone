@@ -8,32 +8,32 @@ import InterActionSkeleton from '@/skeleton/interAction';
 import LikeIcon from '@/components/postInteractions/utils/likeIcon';
 import { InterAction } from './utils/types';
 
-export default function PostInteractions({ id, variant }: InterAction) {
+export default function PostInteractions(props: InterAction) {
   const queryClient = useQueryClient();
 
   const { isLoading, data } = useQuery({
-    queryKey: ['interaction', id],
-    queryFn: () => InterActionFn(id),
-    enabled: !!id,
+    queryKey: ['interaction', props.id],
+    queryFn: () => InterActionFn(props.id),
+    enabled: !!props.id,
   });
 
   const { mutate, isPending } = useMutation({
-    mutationFn: (type: string) => apiRequest.post(`/pins/interaction/${id}`, { type }),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['interaction', id] }),
+    mutationFn: (type: string) => apiRequest.post(`/pins/interaction/${props.id}`, { type }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['interaction', props.id] }),
   });
 
   const handleInteractionClick = (type: string) => {
-    if (!id || isPending || isLoading) return;
+    if (!props.id || isPending || isLoading) return;
     mutate(type);
   };
 
-  if (isLoading && variant === 'post') return <InterActionSkeleton />;
+  if (isLoading && props.variant === 'post') return <InterActionSkeleton />;
 
   const buttonClass = `!px-4 !py-3 !rounded-full !text-white !font-bold !text-sm  z-10 ${
     data?.isSaved ? '!bg-gray-400' : '!bg-red-600'
   }`;
 
-  if (variant === 'gallery') {
+  if (props.variant === 'gallery') {
     return (
       <div className="h-full flex flex-col justify-between items-end p-2">
         <Button
