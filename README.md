@@ -96,14 +96,26 @@ The project also includes **component testing using Vitest**  and utilizes vario
     └── docker-compose.yml
 
 
+
 ## 🧪 Testing
 
-This project uses **Vitest**  and **React Testing Library**  to ensure components work correctly and UI renders as expected.
+This project uses **Vitest**  along with **React Testing Library**  to verify that components function correctly and the UI renders as expected.
 
-    cd client 
+### ▶️ Run Tests from CLI
+
+    cd client
     npm run test
 
+This command runs all unit and component tests in the terminal.
 
+### 🧭 Visual Test Dashboard (UI)
+
+To open the Vitest UI dashboard:
+
+    cd client
+    npm run test:ui
+
+This will launch a visual interface where you can explore test results interactively.
 
 
 ## 🧰 Installation & Setup
@@ -116,8 +128,8 @@ This project uses **Vitest**  and **React Testing Library**  to ensure component
 	    
  2.  **Set up the frontend:**
 	
-		    cd client
-		    npm install -f
+		  cd client
+		  npm install -f
 
 	 
 
@@ -126,8 +138,8 @@ This project uses **Vitest**  and **React Testing Library**  to ensure component
 
 To configure the frontend environment, you need to define two environment variables:
 
-		VITE_URL_ENDPOINT_KIT=
-		VITE_API_BASE_URL=http://localhost:3000/api
+	VITE_URL_ENDPOINT_KIT=
+	VITE_API_BASE_URL=http://localhost:3000/api
 
  
 
