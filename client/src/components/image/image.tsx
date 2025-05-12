@@ -5,7 +5,7 @@ export default function Image(props: Props) {
     return (
         <IKImage
             path={props.media}
-            urlEndpoint={import.meta.env.VITE_URL_ENDPOINT}
+            urlEndpoint={import.meta.env.VITE_URL_ENDPOINT_KIT}
             className={props.className}
             transformation={[{ height: props.h, width: props.w }]}
             loading="lazy"

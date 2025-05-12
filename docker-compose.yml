@@ -4,6 +4,8 @@ services:
       context: ./backend
     env_file:
       - ./backend/.env
+    ports:
+      - "3000:3000"
 
   client:
     build:
@@ -14,3 +16,4 @@ services:
       - ./client/.env
     depends_on:
       - server
+
