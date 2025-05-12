@@ -111,7 +111,7 @@ export const createPin = async (req, res) => {
   const imagekit = new Imagekit({
     publicKey: process.env.IK_PUBLIC_KEY,
     privateKey: process.env.IK_PRIVATE_KEY,
-    urlEndpoint: process.env.IK_URL_ENDPOINT,
+    urlEndpoint: process.env.IK_URL_ENDPOINT_KIT,
   });
 
   const textLeftPosition = Math.round((parsedTextOptions.left * width) / 375);
